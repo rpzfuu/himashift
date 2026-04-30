@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="admindashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="beranda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UserControls\admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\anggota.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\beranda.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\dashboard_absensi.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\dashboard_event.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\dashboard_profil.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\dashboard_sertifikat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
