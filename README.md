@@ -1,5 +1,7 @@
 # HIMASHIFT
 
+Bahasa: [ID](README.md) | [EN](README_EN.md)
+
 HIMASHIFT adalah aplikasi arsip untuk Himpunan Mahasiswa Sistem Informasi. Repository ini berisi dua aplikasi web Laravel dan satu aplikasi desktop Windows Forms yang memakai database MySQL yang sama.
 
 Dokumentasi ini ditujukan untuk pengguna teknis, operator, dan developer yang ingin menjalankan, menguji, mengembangkan, atau mendistribusikan ulang HIMASHIFT.

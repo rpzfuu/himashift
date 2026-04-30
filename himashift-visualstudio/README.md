@@ -1,5 +1,7 @@
 # HIMASHIFT Desktop
 
+Bahasa: [ID](README.md) | [EN](README_EN.md)
+
 HIMASHIFT Desktop adalah aplikasi Windows Forms untuk arsip/demo lokal HIMASHIFT. Aplikasi ini memakai database MySQL `himashift` yang sama dengan dua aplikasi Laravel.
 
 Dokumentasi ini ditujukan untuk pengguna teknis, operator demo, dan developer yang perlu menjalankan, menguji, membangun, atau mendistribusikan aplikasi desktop.

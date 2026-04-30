@@ -1,5 +1,7 @@
 # HIMASHIFT Mahasiswa
 
+Bahasa: [ID](README.md) | [EN](README_EN.md)
+
 HIMASHIFT Mahasiswa adalah aplikasi Laravel 10 untuk halaman publik, login mahasiswa, absensi, event, profil, dan sertifikat PDF.
 
 Dokumentasi ini ditujukan untuk developer dan operator yang perlu menjalankan, menguji, atau mengembangkan aplikasi mahasiswa.

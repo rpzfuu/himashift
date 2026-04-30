@@ -1,5 +1,7 @@
 # HIMASHIFT Admin
 
+Bahasa: [ID](README.md) | [EN](README_EN.md)
+
 HIMASHIFT Admin adalah aplikasi Laravel 10 untuk mengelola data inti HIMASHIFT, termasuk mahasiswa, event, absen, dan status kehadiran.
 
 Dokumentasi ini ditujukan untuk developer dan operator yang perlu menjalankan, menguji, atau mengembangkan admin panel.
