@@ -1,14 +1,12 @@
 # HIMASHIFT
 
-HIMASHIFT adalah aplikasi arsip untuk Himpunan Mahasiswa Sistem Informasi. Project ini mencakup dua aplikasi web Laravel dan satu aplikasi desktop Windows Forms yang memakai database MySQL yang sama.
+HIMASHIFT adalah aplikasi arsip untuk Himpunan Mahasiswa Sistem Informasi. Repository ini berisi dua aplikasi web Laravel dan satu aplikasi desktop Windows Forms yang memakai database MySQL yang sama.
 
-Aplikasi ini membantu pengelolaan data anggota, divisi, agenda/event, absensi, status kehadiran, dan pembuatan sertifikat sederhana untuk mahasiswa.
+Dokumentasi ini ditujukan untuk pengguna teknis, operator, dan developer yang ingin menjalankan, menguji, mengembangkan, atau mendistribusikan ulang HIMASHIFT.
 
-Project ini dipertahankan sebagai archive proses belajar. Kode aslinya tidak dirombak total; perbaikan difokuskan pada bug fatal, bug integrity, dan bug security yang membuat aplikasi tidak aman atau tidak siap dipresentasikan sebagai portofolio publik.
+## Status Proyek
 
-## Status
-
-Code/config web Laravel sudah deploy-ready untuk portofolio publik. Versi desktop WinForms juga sudah dipublish sebagai Windows x64 self-contained EXE.
+HIMASHIFT dipertahankan sebagai proyek arsip. Struktur utama, gaya kode lama, dan perilaku historis tetap dijaga, sementara bug fatal, bug keamanan, dan bug integritas data yang menghambat penggunaan telah diperbaiki.
 
 Verifikasi terakhir: 2026-04-30.
 
@@ -17,37 +15,36 @@ Verifikasi terakhir: 2026-04-30.
 - Desktop xUnit: 13 tests passed.
 - Desktop EXE smoke: aplikasi start dan membuka window `beranda`.
 - Composer audit: no advisories.
-- `pnpm install --frozen-lockfile`: pass di dua app.
-- `pnpm run build`: pass di dua app.
-- Route/config/view cache simulation: pass di dua app.
+- `pnpm install --frozen-lockfile`: pass di dua app Laravel.
+- `pnpm run build`: pass di dua app Laravel.
+- Route/config/view cache simulation: pass di dua app Laravel.
 - Local production smoke dengan `APP_ENV=production` dan `APP_DEBUG=false`: pass.
 - HTTP CRUD/cascade/PDF/IDOR smoke: pass.
-- JS dependency memakai satu lockfile: `pnpm-lock.yaml`.
 
-Status terbaru repo dicatat di [PROJECT_STATUS.md](PROJECT_STATUS.md).
+Status teknis terbaru dicatat di [PROJECT_STATUS.md](PROJECT_STATUS.md).
 
-## Aplikasi
-
-Repo ini berisi dua Laravel app dan satu WinForms desktop archive yang memakai satu database MySQL yang sama.
+## Komponen Repository
 
 ```text
 himashift/
-|-- himashift-admin/       # Admin panel
-|-- himashift-mahasiswa/   # Aplikasi mahasiswa/public
+|-- himashift-admin/        # Admin panel Laravel
+|-- himashift-mahasiswa/    # Aplikasi mahasiswa dan halaman publik Laravel
 |-- himashift-visualstudio/ # Aplikasi desktop Windows Forms
-|-- reports/               # Laporan testing L1-L12
-|-- DEPLOY.md              # Panduan deploy
-|-- ARCHITECTURE.md        # Arsitektur teknis
-|-- ARCHIVE_NOTES.md       # Catatan arsip dan trade-off
-|-- CHANGELOG.md           # Perubahan rescue/testing
-`-- PROJECT_STATUS.md      # Status terbaru repo
+|-- reports/                # Laporan testing L1-L12
+|-- DEPLOY.md               # Panduan deploy web
+|-- ARCHITECTURE.md         # Arsitektur teknis
+|-- ARCHIVE_NOTES.md        # Catatan arsip dan trade-off
+|-- CHANGELOG.md            # Riwayat perubahan rescue/testing
+`-- PROJECT_STATUS.md       # Status terbaru repository
 ```
 
-### Himashift Admin
+## Aplikasi
 
-Admin panel untuk pengelolaan data inti.
+### HIMASHIFT Admin
 
-Fitur:
+Admin panel digunakan untuk mengelola data inti organisasi dan absensi.
+
+Fitur utama:
 
 - Login admin.
 - CRUD mahasiswa.
@@ -64,11 +61,13 @@ Rute utama:
 - `/home/absen`
 - `/home/kehadiran`
 
-### Himashift Mahasiswa
+Dokumentasi khusus app tersedia di [himashift-admin/README.md](himashift-admin/README.md).
 
-Aplikasi untuk mahasiswa dan halaman publik.
+### HIMASHIFT Mahasiswa
 
-Fitur:
+Aplikasi mahasiswa menyediakan halaman publik, dashboard mahasiswa, absensi, event, dan sertifikat.
+
+Fitur utama:
 
 - Login mahasiswa memakai NIM.
 - Halaman publik anggota.
@@ -89,28 +88,25 @@ Rute utama:
 - `/dashboard/event`
 - `/dashboard/sertifikat`
 
+Dokumentasi khusus app tersedia di [himashift-mahasiswa/README.md](himashift-mahasiswa/README.md).
+
 ### HIMASHIFT Desktop
 
-Aplikasi desktop Windows Forms untuk arsip/demo lokal HIMASHIFT.
+Aplikasi desktop Windows Forms disediakan sebagai artefak arsip/demo lokal untuk Windows x64.
 
-Status rilis:
+Detail rilis:
 
 - Target: `.NET 6.0-windows`.
 - Runtime: Windows x64.
 - Published EXE: `himashift-visualstudio/bin/Release/net6.0-windows/win-x64/publish/HIMASHIFT.exe`.
-- Ukuran EXE: sekitar 161 MB.
-- Build: self-contained single-file, sehingga pengguna normal tidak perlu install .NET Runtime terpisah.
+- Build: self-contained single-file.
+- Database: MySQL `himashift`.
 
-Catatan penting:
+Dokumentasi khusus desktop tersedia di [himashift-visualstudio/README.md](himashift-visualstudio/README.md).
 
-- Tetap membutuhkan database MySQL `himashift`.
-- Connection string desktop saat ini mengarah ke `localhost:3306`, user `root`, password `rafumazta`.
-- File dump database desktop tersedia di `himashift-visualstudio/db/himashift-dump.sql`.
-- Untuk rilis publik sungguhan, jangan pakai credential root/personal; buat user demo terbatas lalu rebuild EXE.
+## Arsitektur Data
 
-## Arsitektur
-
-Dua app web dan aplikasi desktop memakai database yang sama bernama `himashift`.
+Dua aplikasi web dan aplikasi desktop memakai database yang sama bernama `himashift`.
 
 ```text
 himashift-admin        himashift-mahasiswa        HIMASHIFT Desktop
@@ -139,9 +135,9 @@ Flow utama:
 4. Mahasiswa login dan membuka halaman absensi.
 5. Mahasiswa submit kehadiran miliknya sendiri.
 6. Admin melihat atau mengubah status kehadiran.
-7. Mahasiswa bisa membuat sertifikat PDF dari halaman sertifikat.
+7. Mahasiswa membuat sertifikat PDF dari halaman sertifikat.
 
-Detail tambahan ada di [ARCHITECTURE.md](ARCHITECTURE.md).
+Detail arsitektur tersedia di [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Tech Stack
 
@@ -156,7 +152,7 @@ Web Laravel:
 - TCPDF untuk sertifikat PDF.
 - PHPUnit untuk automated tests.
 
-Runtime yang direkomendasikan untuk hosting: PHP 8.2 atau 8.3.
+Runtime hosting yang direkomendasikan: PHP 8.2 atau 8.3.
 
 Desktop:
 
@@ -165,44 +161,37 @@ Desktop:
 - MySql.Data 8.0.33.
 - xUnit untuk automated tests.
 
-## Credential Default
+## Akun Demo
 
-### Web Laravel
+Credential berikut tersedia pada data seed/demo. Ganti credential sebelum memakai aplikasi untuk lingkungan publik atau produksi.
 
-Admin:
+Admin web:
 
 - Username: `admin`
 - Password: `12345678`
 
-Mahasiswa:
+Mahasiswa web:
 
 - NIM contoh: `F1E120002`
 - Password: `12345678`
 
-### Desktop WinForms
+Desktop:
 
-Admin:
+- Admin name: `admin`
+- Admin password: `12345678`
+- NIM contoh mahasiswa: `F1E120057`
+- Password mahasiswa: `12345678`
 
-- Name: `admin`
-- Password: `12345678`
+## Setup Pengembangan Web
 
-Mahasiswa:
-
-- NIM contoh: `F1E120057`
-- Password: `12345678`
-
-Catatan archive: password mahasiswa pada database arsip masih plain text. Ini sengaja tidak diubah agar perilaku project lama tetap terjaga. Security bug yang berdampak langsung, seperti IDOR submit absensi, sudah difix.
-
-## Instalasi Lokal Web Laravel
-
-Pastikan sudah tersedia:
+Prasyarat:
 
 - PHP dengan extension umum Laravel: `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo`, `zip`.
 - MySQL/MariaDB.
 - Composer.
 - pnpm.
 
-### 1. Install Dependency
+Install dependency:
 
 ```bash
 cd himashift-admin
@@ -214,17 +203,13 @@ composer install
 pnpm install --frozen-lockfile
 ```
 
-### 2. Siapkan Database
-
 Buat database:
 
 ```sql
 CREATE DATABASE himashift CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-### 3. Siapkan `.env`
-
-Di dua app, salin `.env.example` menjadi `.env`, lalu sesuaikan DB:
+Siapkan `.env` pada `himashift-admin` dan `himashift-mahasiswa` dari `.env.example`, lalu arahkan keduanya ke database yang sama:
 
 ```env
 DB_CONNECTION=mysql
@@ -235,7 +220,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Generate key di dua app:
+Generate application key:
 
 ```bash
 cd himashift-admin
@@ -244,8 +229,6 @@ php artisan key:generate
 cd ../himashift-mahasiswa
 php artisan key:generate
 ```
-
-### 4. Migrasi dan Seeder
 
 Jalankan migrasi dan seeder dari `himashift-admin` saja:
 
@@ -254,13 +237,9 @@ cd himashift-admin
 php artisan migrate:fresh --seed
 ```
 
-Kenapa hanya dari admin app?
+`himashift-admin` menjadi sumber migrasi/seeder awal karena dua app memakai database yang sama. Menjalankan seeder dari dua app dapat menghasilkan data duplikat atau data demo yang tidak konsisten.
 
-- Dua app memakai database yang sama.
-- Seeder admin menghasilkan data mahasiswa yang cocok dengan login archive.
-- Menjalankan seeder dari dua app dapat membuat duplicate data atau perilaku login yang tidak sesuai archive.
-
-### 5. Build Asset
+Build asset:
 
 ```bash
 cd himashift-admin
@@ -270,16 +249,12 @@ cd ../himashift-mahasiswa
 pnpm run build
 ```
 
-### 6. Jalankan Lokal
-
-Terminal 1:
+Jalankan server lokal:
 
 ```bash
 cd himashift-admin
 php artisan serve --host=127.0.0.1 --port=18081
 ```
-
-Terminal 2:
 
 ```bash
 cd himashift-mahasiswa
@@ -291,9 +266,9 @@ URL lokal:
 - Admin: `http://127.0.0.1:18081/login`
 - Mahasiswa: `http://127.0.0.1:18082/`
 
-## Testing Web Laravel
+## Testing
 
-Jalankan test di masing-masing app:
+Test Laravel:
 
 ```bash
 cd himashift-admin
@@ -303,132 +278,74 @@ cd ../himashift-mahasiswa
 php artisan test
 ```
 
-PHPUnit memakai SQLite in-memory, jadi test tidak mengubah database MySQL lokal.
+PHPUnit memakai SQLite in-memory, sehingga test tidak mengubah database MySQL lokal.
 
 Coverage perilaku utama:
 
-- Login admin.
-- Login mahasiswa.
+- Login admin dan mahasiswa.
 - Register disabled.
 - Protected route redirect.
-- CRUD mahasiswa.
-- CRUD event.
-- CRUD absen.
+- CRUD mahasiswa, event, dan absen.
 - Cascade delete absen/kehadiran.
 - Update status kehadiran.
 - Submit kehadiran mahasiswa.
 - Proteksi IDOR submit kehadiran.
 - Generate sertifikat PDF.
-- Invalid edit route menjadi 404, bukan 500.
+- Invalid edit/show route menjadi 404, bukan 500.
 
-Laporan testing lengkap ada di folder [reports](reports/).
+Laporan testing lengkap tersedia di folder [reports](reports/).
 
-## Deploy Web Laravel
+## Deploy Web
 
-Panduan deploy lengkap ada di [DEPLOY.md](DEPLOY.md).
+Panduan deploy lengkap tersedia di [DEPLOY.md](DEPLOY.md).
 
-Urutan ringkas:
+Ringkasan deploy:
 
-1. Setup hosting, domain, dan SSL.
+1. Siapkan hosting, domain, dan SSL.
 2. Upload `himashift-admin` dan `himashift-mahasiswa`.
 3. Arahkan document root masing-masing domain/subdomain ke folder `public/`.
 4. Siapkan `.env` production dari `.env.production.example`.
-5. Jalankan install dependency, build asset, migrate, dan cache command.
+5. Jalankan install dependency, build asset, migrasi, dan cache command.
 6. Pasang security headers di hosting.
 7. Jalankan `post-deploy-check.sh`.
 8. Jalankan browser checklist L11.
-9. Lakukan restore drill sebelum URL portofolio disebar.
+9. Lakukan restore drill sebelum URL publik disebar.
 
 Contoh document root:
 
 - `admin.example.com` -> `himashift-admin/public`
 - `himashift.example.com` -> `himashift-mahasiswa/public`
 
-## Rilis Desktop EXE
+## Desktop Build dan Distribusi
 
-Untuk GitHub Release desktop, gunakan input berikut:
+Build desktop memakai .NET SDK:
 
-- Tag: `v1.0.0`.
-- Target: `main`.
-- Release title: `HIMASHIFT Desktop v1.0.0`.
-- Asset utama: `himashift-visualstudio/bin/Release/net6.0-windows/win-x64/publish/HIMASHIFT.exe`.
-- Asset tambahan yang disarankan: `himashift-visualstudio/db/himashift-dump.sql`, selama tidak ada data sensitif.
-
-Release notes yang disarankan:
-
-```md
-## HIMASHIFT Desktop v1.0.0
-
-Rilis pertama aplikasi desktop HIMASHIFT berbasis Windows Forms.
-
-### Isi rilis
-- Aplikasi desktop Windows x64.
-- Build self-contained, jadi tidak perlu install .NET Runtime terpisah.
-- Terhubung ke database MySQL `himashift`.
-- Mendukung login mahasiswa dan admin.
-
-### Cara menjalankan
-1. Download `HIMASHIFT.exe` dari bagian Assets.
-2. Pastikan MySQL berjalan di `localhost:3306`.
-3. Import `himashift-dump.sql` ke database bernama `himashift`.
-4. Jalankan `HIMASHIFT.exe`.
-
-### Akun demo
-Mahasiswa:
-- NIM: `F1E120057`
-- Password: `12345678`
-
-Admin:
-- Name: `admin`
-- Password: `12345678`
-
-### Catatan
-- Aplikasi ini masih membutuhkan database MySQL lokal.
-- Build ini cocok sebagai arsip/demo desktop HIMASHIFT.
-- Versi ini dibuat dengan `.NET 6.0-windows`.
+```powershell
+cd himashift-visualstudio
+dotnet restore
+dotnet build
+dotnet test
+dotnet publish HIMASHIFT.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=false
 ```
 
-## Production Notes
+Artefak rilis utama:
 
-Gunakan `.env.production.example` di masing-masing app sebagai template.
+- `himashift-visualstudio/bin/Release/net6.0-windows/win-x64/publish/HIMASHIFT.exe`
+- `himashift-visualstudio/db/himashift-dump.sql`
 
-Nilai penting:
+Catatan distribusi:
 
-```env
-APP_ENV=production
-APP_DEBUG=false
-LOG_CHANNEL=daily
-LOG_LEVEL=warning
-SESSION_SECURE_COOKIE=true
-```
+- Desktop tetap membutuhkan database MySQL `himashift`.
+- Connection string desktop saat ini mengarah ke `localhost:3306`, user `root`, password `rafumazta`.
+- Untuk distribusi publik, gunakan user database demo yang terbatas lalu rebuild EXE.
+- `.NET 6` sudah end-of-support; migrasi target framework disarankan untuk pengembangan jangka panjang.
 
-Security header minimum yang dicek oleh `post-deploy-check.sh`:
+## Catatan Keamanan dan Arsip
 
-- `X-Frame-Options`
-- `X-Content-Type-Options`
-- `Strict-Transport-Security`
-
-Contoh nginx:
-
-```nginx
-add_header X-Frame-Options "SAMEORIGIN" always;
-add_header X-Content-Type-Options "nosniff" always;
-add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
-```
-
-## Archive Philosophy
-
-Prinsip rescue project ini:
-
-- Test seluas mungkin.
-- Fix seminim mungkin.
-- Fix hanya bug fatal, data integrity, dan security yang berdampak.
-- Quality issues yang merupakan karakter archive didokumentasikan, bukan dirombak.
-
-Yang difix:
+Perbaikan yang sudah dilakukan:
 
 - IDOR submit kehadiran.
-- Password reset mahasiswa yang 500.
+- Password reset mahasiswa yang menghasilkan 500.
 - Duplicate route name yang membuat `route:cache` gagal.
 - Relasi model `Kehadiran::absen()` yang salah.
 - Admin register exposure.
@@ -436,42 +353,38 @@ Yang difix:
 - Certificate PDF response.
 - Invalid edit/show route yang berisiko 500.
 
-Yang sengaja dipertahankan:
+Perilaku arsip yang sengaja dipertahankan:
 
-- Plain text password mahasiswa.
-- Validasi form minimal.
-- Naming controller lama.
-- Struktur dua app terpisah.
-- UI Bootstrap lama.
-- Beberapa warning dependency/deprecation yang tidak fatal.
+- Password mahasiswa pada database arsip masih plain text.
+- Validasi form masih minimal.
+- Naming controller lama tetap digunakan.
+- Dua aplikasi Laravel tetap dipisah.
+- UI Bootstrap lama tetap dipertahankan.
+- Beberapa warning dependency/deprecation yang tidak fatal masih terdokumentasi.
 
-Catatan lengkap ada di [ARCHIVE_NOTES.md](ARCHIVE_NOTES.md).
+Catatan lengkap tersedia di [ARCHIVE_NOTES.md](ARCHIVE_NOTES.md).
 
-## Dokumentasi Tambahan
+## Panduan Kontribusi
 
-- [PROJECT_STATUS.md](PROJECT_STATUS.md): status terbaru project.
-- [DEPLOY.md](DEPLOY.md): panduan deploy dan rollback.
+Saat mengembangkan HIMASHIFT:
+
+- Pertahankan kompatibilitas schema database bersama antara admin, mahasiswa, dan desktop.
+- Jalankan migrasi/seeder awal dari `himashift-admin`.
+- Jalankan test pada dua app Laravel setelah mengubah model, controller, route, atau policy terkait database bersama.
+- Jalankan test desktop setelah mengubah kode WinForms atau akses database desktop.
+- Dokumentasikan perubahan perilaku di [CHANGELOG.md](CHANGELOG.md).
+- Hindari commit file `.env`, credential produksi, atau dump database berisi data sensitif.
+
+## Dokumentasi Terkait
+
+- [PROJECT_STATUS.md](PROJECT_STATUS.md): status teknis terbaru.
+- [DEPLOY.md](DEPLOY.md): panduan deploy dan rollback web.
 - [ARCHITECTURE.md](ARCHITECTURE.md): arsitektur dua app dan flow data.
-- [ARCHIVE_NOTES.md](ARCHIVE_NOTES.md): filosofi archive dan trade-off.
-- [CHANGELOG.md](CHANGELOG.md): perubahan yang dilakukan saat rescue.
+- [ARCHIVE_NOTES.md](ARCHIVE_NOTES.md): filosofi arsip dan trade-off.
+- [CHANGELOG.md](CHANGELOG.md): riwayat perubahan.
 - [reports/SUMMARY.md](reports/SUMMARY.md): ringkasan testing L1-L12.
 - [reports/L11-browser-checklist.md](reports/L11-browser-checklist.md): checklist manual sebelum publikasi.
-- [himashift-visualstudio/README.md](himashift-visualstudio/README.md): panduan desktop WinForms.
+- [himashift-admin/README.md](himashift-admin/README.md): dokumentasi admin panel.
+- [himashift-mahasiswa/README.md](himashift-mahasiswa/README.md): dokumentasi aplikasi mahasiswa.
+- [himashift-visualstudio/README.md](himashift-visualstudio/README.md): dokumentasi desktop WinForms.
 - [himashift-visualstudio/DEPLOY.md](himashift-visualstudio/DEPLOY.md): catatan distribusi EXE desktop.
-
-## Portfolio Story
-
-Project ini dapat dipresentasikan sebagai:
-
-> Project awal dari masa belajar yang kemudian direstore, diaudit 12 lapisan, diperbaiki pada bug fatal/security/integrity, ditambah automated tests, dan dipersiapkan untuk deploy publik tanpa menghilangkan identitas kode aslinya.
-
-Angle teknis yang menonjol:
-
-- Restore legacy/archive Laravel app.
-- Rescue dan distribusi desktop WinForms archive.
-- Audit environment, routing, database, security, performance, dan deploy readiness.
-- Fix security bug IDOR.
-- Fix production blocker `route:cache`.
-- Tambah 23 automated tests proporsional.
-- Dokumentasi deploy dan rollback.
-- Publish desktop self-contained EXE untuk demo lokal.
