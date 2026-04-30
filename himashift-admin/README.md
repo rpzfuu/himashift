@@ -24,10 +24,12 @@ composer install
 pnpm install
 cp .env.example .env
 php artisan key:generate
-php artisan migrate --seed
+php artisan migrate:fresh --seed
 pnpm run build
 php artisan serve
 ```
+
+This app is the source for initial database seeding. The mahasiswa app must point to the same database and should not run its own seeder for the shared archive DB.
 
 ## Default Credential
 
@@ -41,3 +43,5 @@ php artisan test
 ```
 
 The test suite uses SQLite in-memory.
+
+For the full project README, see `../README.md`.

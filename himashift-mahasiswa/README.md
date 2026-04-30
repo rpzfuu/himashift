@@ -27,10 +27,11 @@ composer install
 pnpm install
 cp .env.example .env
 php artisan key:generate
-php artisan migrate --seed
 pnpm run build
 php artisan serve
 ```
+
+Use the same database as `himashift-admin`. Run migrations/seeders from `himashift-admin` only, then point this app's `.env` to that shared database.
 
 ## Default Credential
 
@@ -48,3 +49,5 @@ php artisan test
 ```
 
 The test suite uses SQLite in-memory.
+
+For the full project README, see `../README.md`.
